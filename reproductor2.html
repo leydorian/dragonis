@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>DRAGONIS</title>
+<style>
+*{margin:0; padding:0; box-sizing:border-box;}
+body{font-family:Arial; background:#0a0a0a; color:white;}
+header{background:#D00000; color:white; padding:15px 20px; font-weight:bold; font-size:20px; letter-spacing:2px; display:flex; align-items:center; gap:15px; position:sticky; top:0; z-index:100;}
+header label{font-size:28px; cursor:pointer;}
+
+/* MENU DESPLEGABLE */
+#check-menu{display:none;}
+.sidebar{
+  position:fixed; top:0; left:-260px; width:240px; height:100vh;
+  background:#111; border-right:2px solid #D00000; padding:80px 20px 20px;
+  transition:0.35s ease; z-index:90;
+}
+.sidebar a{color:white; text-decoration:none; display:block; margin:18px 0; font-size:17px;}
+.sidebar a:hover{color:#FF0000;}
+#check-menu:checked ~ .sidebar{left:0;}
+.fondo{position:fixed; inset:0; background:rgba(0,0,0,0.6); display:none; z-index:80;}
+#check-menu:checked ~ .fondo{display:block;}
+
+.layout{display:flex;}
+.main{flex:1; text-align:center; padding:40px; background:radial-gradient(circle, #1a1a1a 0%, #000 100%); min-height:100vh;}
+
+/* VINILO IGUAL - YA EXCELENTE */
+.vinilo{
+  width:280px; height:280px; background:#000; border-radius:50%;
+  margin:0 auto; position:relative; border:6px solid #1a1a1a;
+  box-shadow:0 0 20px rgba(255,0,0,0.5);
+  display:flex; align-items:center; justify-content:center;
+  animation: girar 3s linear infinite; animation-play-state: paused;
+}
+.vinilo-centro{width:110px; height:110px; border-radius:50%; background:#D00000; overflow:hidden; border:4px solid #000; z-index:2;}
+.vinilo-centro img{width:100%; height:100%; object-fit:cover;}
+.puntito{position:absolute; width:14px; height:14px; background:white; border-radius:50%; border:2px solid black; z-index:3;}
+@keyframes girar{ from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+.girando{ animation-play-state: running !important; }
+
+/* BOTONES NUEVO ESTILO DIFERENTE - TODOS ROJOS */
+.controles{margin-top:35px; display:flex; justify-content:center; align-items:center; gap:25px;}
+.btn-ant, .btn-sig{
+  width:52px; height:52px; border-radius:12px;
+  background:#1a1a1a; border:2px solid #D00000; color:#D00000;
+  font-size:22px; cursor:pointer; transition:0.2s;
+}
+.btn-ant:hover, .btn-sig:hover{background:#D00000; color:white; box-shadow:0 0 15px #FF0000; transform:translateY(-2px);}
+.btn-play-new{
+  width:75px; height:75px; border-radius:18px;
+  background:linear-gradient(145deg, #D00000, #FF0000); border:none; color:white;
+  font-size:32px; cursor:pointer; box-shadow:0 5px 20px rgba(255,0,0,0.6); transition:0.2s;
+}
+.btn-play-new:hover{transform:scale(1.05); box-shadow:0 8px 30px rgba(255,0,0,0.9);}
+.btn-play-new:active{transform:scale(0.95);}
+
+audio{width:85%; max-width:500px; margin-top:28px; accent-color:#D00000;}
+.volver{margin-top:22px; padding:12px 25px; background:#D00000; color:white; border:none; border-radius:25px; cursor:pointer; font-weight:bold;}
+h2{color:#FF0000; margin-top:30px; letter-spacing:3px; margin-bottom:5px;}
+</style>
+</head>
+<body>
+
+<input type="checkbox" id="check-menu">
+<header><label for="check-menu">☰</label> DRAGONIS</header>
+<div class="sidebar">
+  <h3 style="color:#D00000; margin-bottom:15px;">MENU</h3>
+  <a href="index.html">🏠 INICIO</a>
+  <a href="videoclips.html">📹 VIDEOCLIPS</a>
+  <a href="generos.html">🎸 ROCK AND ROLL</a>
+  <a href="pop.html">🎵 POP</a>
+  <a href="k_pop.html">🎐 K-POP</a>
+  <a href="banda.html">💃 BANDA</a>
+  <a href="corridos.html">🦥 CORRIDOS</a>
+  <a href="banda.html"> SALIR</a>
+</div>
+<label class="fondo" for="check-menu"></label>
+
+<div class="layout">
+  <div class="main">
+    <div class="vinilo" id="disco">
+      <div class="vinilo-centro"><img id="portada" src="carnaval.jpg"></div>
+      <div class="puntito"></div>
+    </div>
+
+    <h2 id="titulo">BANDA CARNAVAL</h2>
+    <p id="cancion">LA HISTORIA DE MIS MANOS</p>
+    
+    <div class="controles">
+      <button class="btn-ant" onclick="cambiar(-1)">⏮</button>
+      <button class="btn-play-new" id="btnPlay" onclick="playPause()">▶</button>
+      <button class="btn-sig" onclick="cambiar(1)">⏭</button>
+    </div>
+
+    <audio id="audio" controls autoplay>
+      <source id="srcAudio" src="banda carnaval.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+</div>
+
+<script>
+const playlist = [
+  { titulo: "BANDA CARNAVAL", cancion: "ENCONTRARTE", archivo: "banda carnaval-2.mp3", portada: "carnaval.jpg" },
+
+];
+let actual = 0;
+const audio = document.getElementById('audio');
+const disco = document.getElementById('disco');
+const btnPlay = document.getElementById('btnPlay');
+function play(){ disco.classList.add('girando'); btnPlay.textContent = "⏸"; }
+function pause(){ disco.classList.remove('girando'); btnPlay.textContent = "▶"; }
+function playPause(){ if(audio.paused) audio.play(); else audio.pause(); }
+function cambiar(dir){
+  actual += dir;
+  if(actual < 0) actual = playlist.length - 1;
+  if(actual >= playlist.length) actual = 0;
+  document.getElementById('titulo').textContent = playlist[actual].titulo;
+  document.getElementById('cancion').textContent = playlist[actual].cancion;
+  document.getElementById('portada').src = playlist[actual].portada;
+  document.getElementById('srcAudio').src = playlist[actual].archivo;
+  audio.load(); audio.play();
+}
+audio.onplay = play;
+audio.onpause = pause;
+audio.onended = () => cambiar(1);
+</script>
+</body>
+</html>
