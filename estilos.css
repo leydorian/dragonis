@@ -1,0 +1,367 @@
+
+/* Configuración general */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #101010;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Encabezado */
+.encabezado {
+    height: 75px;
+    background-color: #050505;
+    border-bottom: 2px solid #e5092a;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 5%;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+.encabezado h1 {
+    font-size: 27px;
+    margin-right: auto;
+}
+
+.encabezado h1 span {
+    color: #ed0a32;
+}
+
+.boton-menu {
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+    padding: 5px 10px;
+}
+
+.boton-menu:hover {
+    color: #ed0a32;
+}
+
+.enlace-favoritos {
+    color: white;
+    text-decoration: none;
+}
+
+.enlace-favoritos:hover {
+    color: #ed0a32;
+}
+
+/* Menú lateral desplegable */
+.control-menu {
+    display: none;
+}
+
+.menu-lateral {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    background-color: #080808;
+    border-right: 2px solid #ed0a32;
+    padding: 25px;
+    z-index: 10;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.control-menu:checked ~ .menu-lateral {
+    transform: translateX(0);
+}
+
+.menu-lateral h2 {
+    color: #ed0a32;
+    margin: 35px 0 25px;
+}
+
+.menu-lateral nav a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 15px 10px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.menu-lateral nav a:hover {
+    background-color: #ed0a32;
+    padding-left: 20px;
+}
+
+.cerrar-menu {
+    display: block;
+    text-align: right;
+    cursor: pointer;
+    color: #ed0a32;
+    font-weight: bold;
+}
+
+.menu-extra {
+    margin-top: 50px;
+    color: #999;
+    line-height: 2;
+}
+
+/* Fondo oscuro al abrir el menú */
+.fondo-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 8;
+}
+
+.control-menu:checked ~ .fondo-menu {
+    display: block;
+}
+
+/* Portada principal */
+.portada {
+    padding: 90px 8%;
+    min-height: 400px;
+    background: linear-gradient(110deg, #3b0010, #101010 75%);
+}
+
+.subtitulo {
+    color: #ff2448;
+    letter-spacing: 4px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.portada h2 {
+    font-size: clamp(38px, 6vw, 65px);
+    margin-bottom: 20px;
+}
+
+.portada h2 span {
+    color: #ed0a32;
+}
+
+.portada p:not(.subtitulo) {
+    max-width: 500px;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.boton-rojo {
+    display: inline-block;
+    background-color: #ed0a32;
+    color: white;
+    text-decoration: none;
+    padding: 14px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.boton-rojo:hover {
+    background-color: #b90024;
+    transform: scale(1.05);
+}
+
+/* Secciones */
+.seccion {
+    padding: 40px 5%;
+    scroll-margin-top: 85px;
+}
+
+.seccion h2 {
+    margin-bottom: 25px;
+    font-size: 25px;
+}
+
+/* Tarjetas de canciones */
+.contenedor-canciones {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.cancion {
+    background-color: #1b1b1b;
+    padding: 15px;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.cancion:hover {
+    background-color: #292929;
+    transform: translateY(-5px);
+}
+
+.portada-cancion {
+    height: 160px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.portada1 {
+    background: linear-gradient(135deg, #79001b, #ed0a32);
+}
+
+.portada2 {
+    background: linear-gradient(135deg, #240046, #9d174d);
+}
+
+.portada3 {
+    background: linear-gradient(135deg, #242424, #9e1111);
+}
+
+.portada4 {
+    background: linear-gradient(135deg, #151515, #a60026);
+}
+
+.cancion h3 {
+    margin-bottom: 8px;
+}
+
+.cancion p {
+    color: #aaa;
+    margin-bottom: 15px;
+}
+
+.boton-reproducir {
+    display: inline-block;
+    color: white;
+    background-color: #ed0a32;
+    text-decoration: none;
+    padding: 9px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+/* Géneros musicales */
+.contenedor-generos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.contenedor-generos a {
+    background-color: #780019;
+    color: white;
+    text-decoration: none;
+    padding: 18px 25px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.contenedor-generos a:hover {
+    background-color: #ed0a32;
+}
+
+/* Pie de página */
+footer {
+    text-align: center;
+    padding: 25px;
+    background-color: #050505;
+    color: #999;
+    border-top: 1px solid #333;
+}
+
+/* Diseño para tabletas */
+@media (max-width: 900px) {
+    .contenedor-canciones {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .portada {
+        padding: 70px 6%;
+    }
+}
+
+/* Diseño para celulares */
+@media (max-width: 500px) {
+    .encabezado {
+        height: 65px;
+        padding: 0 12px;
+        gap: 10px;
+    }
+
+    .encabezado h1 {
+        font-size: 21px;
+    }
+
+    .enlace-favoritos {
+        font-size: 13px;
+    }
+
+    .menu-lateral {
+        width: min(280px, 85vw);
+    }
+
+    .portada {
+        padding: 60px 22px;
+    }
+
+    .portada h2 {
+        font-size: 40px;
+    }
+
+    .seccion {
+        padding: 30px 18px;
+    }
+
+    .contenedor-canciones {
+        grid-template-columns: 1fr;
+    }
+
+    .portada-cancion {
+        height: 190px;
+    }
+
+    .contenedor-generos a {
+        padding: 14px 18px;
+    }
+
+    footer {
+        font-size: 12px;
+    }
+}
+#anuncio {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.anuncio-caja {
+    background: #1a1a1a;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    border-radius: 15px;
+    border: 2px solid red;
+}
+.boton-premium {
+    background: red;
+    color: white;
+    padding: 12px 20px;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    display: inline-block;
+}

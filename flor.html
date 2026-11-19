@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRAGONIS | Música</title>
+    <link rel="stylesheet" href="estilosss.css">
+</head>
+<body>
+
+    <!-- Encabezado -->
+    <header class="encabezado">
+        <label for="menu" class="boton-menu">☰</label>
+
+        <h1>DRAGO<span>NIS</span></h1>
+
+        
+    </header>
+
+    <!-- Control del menú desplegable -->
+    <input type="checkbox" id="menu" class="control-menu">
+
+    <!-- Menú lateral izquierdo -->
+    <aside class="menu-lateral">
+        <label for="menu" class="cerrar-menu">✕ Cerrar</label>
+
+        <h2>Mi música</h2>
+
+        <nav>
+            <a href="index.html">🏠 Inicio</a>
+            <a href="videoclips.html">📽 Videoclips</a>
+            <a href="generos2.html">🎵 Canciones</a>
+            <a href="flor.html">📄 Suscripción Premiun</a>
+        </nav>
+
+        <div class="menu-extra">
+            <p>Tu música, tu estilo.</p>
+            <p>♪ DRAGONIS</p>
+        </div>
+    </aside>
+
+    <!-- Fondo para cerrar el menú -->
+    <label for="menu" class="fondo-menu"></label>
+    <div class="contenedor">
+        <h1>Formulario de  Suscripción</h1>
+
+        <form id="formulario">
+
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" maxlength="100"
+                placeholder="Escribe tu nombre">
+            <small id="errorNombre"></small>
+
+            <label for="paterno">Apellido paterno:</label>
+            <input type="text" id="paterno" maxlength="100"
+                placeholder="Escribe tu apellido paterno">
+            <small id="errorPaterno"></small>
+
+            <label for="materno">Apellido materno:</label>
+            <input type="text" id="materno" maxlength="100"
+                placeholder="Escribe tu apellido materno">
+            <small id="errorMaterno"></small>
+
+            <label>Fecha de nacimiento:</label>
+<div class="fecha-nacimiento">
+    <select id="dia">
+        <option value="">Día</option>
+    </select>
+    <span>/</span>
+    <select id="mes">
+        <option value="">Mes</option>
+    </select>
+    <span>/</span>
+    <select id="anio">
+        <option value="">Año</option>
+    </select>
+</div>
+<small id="errorFecha"></small>
+
+
+            <label for="edad">Edad:</label>
+            <input type="text" id="edad" maxlength="3"
+                placeholder="Escribe tu edad">
+            <small id="errorEdad"></small>
+
+            <label for="telefono">Cuenta bancaria:</label>
+            <input type="text" id="telefono" maxlength="16"
+                placeholder="16 dígitos">
+            <small id="errorTelefono"></small>
+
+            <label for="gmail">Correo electrónico:</label>
+            <input type="email" id="gmail"
+                placeholder="ejemplo@gmail.com">
+            <small id="errorGmail"></small>
+
+
+            <button type="submit">Suscribir</button>
+
+        </form>
+
+        <p id="mensaje"></p>
+    </div>
+
+    <script src="validaciones.js"></script>
+    <script>
+const diaSel = document.getElementById("dia");
+const mesSel = document.getElementById("mes");
+const anioSel = document.getElementById("anio");
+
+// Días 1 al 31
+for (let i = 1; i <= 31; i++) {
+    let op = document.createElement("option");
+    op.value = i;
+    op.text = i < 10 ? "0" + i : i;
+    diaSel.appendChild(op);
+}
+
+// Meses
+const meses = ["01","02","03","04","05","06","07","08","09","10","11","12"];
+meses.forEach((nombre, index) => {
+    let op = document.createElement("option");
+    op.value = index + 1;
+    op.text = nombre;
+    mesSel.appendChild(op);
+});
+
+// Años de 2026 hacia atrás hasta 1920
+for (let y = 2026; y >= 1920; y--) {
+    let op = document.createElement("option");
+    op.value = y;
+    op.text = y;
+    anioSel.appendChild(op);
+}
+// Que la fecha coincida con la edad
+function calcularEdadDesdeFecha() {
+    const dia = parseInt(diaSel.value);
+    const mes = parseInt(mesSel.value);
+    const anio = parseInt(anioSel.value);
+
+    if (!dia || !mes || !anio) return;
+
+    const hoy = new Date();
+    let edadCalculada = hoy.getFullYear() - anio;
+
+    // Si todavía no ha cumplido años este año, le restamos 1
+    const mesActual = hoy.getMonth() + 1;
+    const diaActual = hoy.getDate();
+
+    if (mes > mesActual || (mes === mesActual && dia > diaActual)) {
+        edadCalculada--;
+    }
+
+    // Poner la edad calculada en el campo edad
+    edad.value = edadCalculada;
+
+    // Y de una vez validar que sea mayor de 15
+    filtrarEdad();
+}
+
+// Cuando cambie día, mes o año, recalcular
+diaSel.addEventListener("change", calcularEdadDesdeFecha);
+mesSel.addEventListener("change", calcularEdadDesdeFecha);
+anioSel.addEventListener("change", calcularEdadDesdeFecha);
+
+</script>
+
+</body>
+</html>
