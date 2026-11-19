@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<div id="anuncio" style="display: none;">
+    <div class="anuncio-caja">
+        <h2>🔥 HAZTE PREMIUM 🔥</h2>
+        <p>Sin anuncios, sin interrupciones.</p>
+        <a href="formulario.html" class="boton-premium">QUIERO SER PREMIUM</a>
+        <br><br>
+        <button onclick="cerrarAnuncio()">Cerrar anuncio y escuchar ❌</button>
+    </div>
+</div>
+
+<script>
+function reproducirConAnuncio() {
+    document.getElementById("anuncio").style.display = "flex";
+}
+function cerrarAnuncio() {
+    document.getElementById("anuncio").style.display = "none";
+    alert("Ya puedes escuchar tu canción 🎵");
+}
+</script>
